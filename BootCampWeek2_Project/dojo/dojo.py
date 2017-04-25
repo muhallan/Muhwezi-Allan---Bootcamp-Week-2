@@ -7,8 +7,10 @@ Usage:
 import sys
 import cmd
 from docopt import docopt, DocoptExit
+from room.room import Room
 
-"""Dojo class"""
+"""Dojo class which is the main class of the system. It calls and implements most of the
+functionality needed in the system"""
 
 
 class Dojo(cmd.Cmd):
@@ -17,10 +19,14 @@ class Dojo(cmd.Cmd):
         self.all_rooms = []
         self.all_people = []
 
+    """Creates rooms in the Dojo. creates a room after receiving as arguments the type of the room and its name.
+    Multiple names can be passed and that would create as many rooms with those names"""
     def create_room(self, room_type, *room_name):
+        room = Room()
         for room in room_name:
             """create()"""
         pass
 
+    """Adds a person to the system and allocates the person a random room"""
     def add_person(self, person_name):
         pass
