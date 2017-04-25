@@ -21,7 +21,7 @@ When a new Fellow joins Andela they are assigned an office space and an optional
 * `print_allocations [-o=filename]` function - Prints a list of allocations onto the screen. Specifying the optional `-o option` here outputs the registered allocations to a txt file.
 * `print_unallocated [-o=filename]` function - Prints a list of unallocated people to the screen. Specifying the -o option here outputs the information to the txt file provided.
 * `reallocate_person <person_identifier> <new_room_name>` function - Reallocate the person with person_identifier to new_room_name.
-* `load_people` - Adds people to rooms from a txt file. See Appendix 1A for text input format.
+* `load_people` - Adds people to rooms from a txt file. 
 * `save_state [--db=sqlite_database]` function - Persists all the data stored in the app to a SQLite database. Specifying the --db parameter explicitly stores the data in the sqlite_database specified. 
 * `load_state <sqlite_database>` function - Loads data from a database into the application.
 
