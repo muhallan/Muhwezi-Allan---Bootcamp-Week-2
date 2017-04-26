@@ -70,6 +70,23 @@ functionality needed in the system"""
     all_rooms = []
     all_people = []
 
+    def create_room(self, room_type, room_name):
+        """
+        This creates a room and saves it in the Dojo.
+        :param room_type, room_name:
+        :return: Boolean
+        """
+        if room_type == "office":
+            new_office = OfficeSpace(room_name)
+            self.all_rooms.append(new_office)
+
+            print("An office called " + room_name + " has been successfully created!")
+        elif room_type == "livingspace":
+            new_office = LivingSpace(room_name)
+            self.all_rooms.append(new_office)
+
+            print("A living space called " + room_name + " has been successfully created!")
+
     @docopt_cmd
     def do_create_room(self, args):
         """Usage: create_room <room_type> <room_name>..."""
@@ -89,7 +106,7 @@ functionality needed in the system"""
             if args['<room_name>'] != None:
                 #store the entered room names in a list
                 entered_room_names = args['<room_name>']
-                
+
                 for room_name in entered_room_names: # loop through the list getting each room name
                     new_office = LivingSpace(room_name)
                     self.all_rooms.append(new_office)
