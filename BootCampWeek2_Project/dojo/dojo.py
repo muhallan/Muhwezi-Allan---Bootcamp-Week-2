@@ -20,6 +20,8 @@ import cmd
 from docopt import docopt, DocoptExit
 
 from room import Room
+from office_space import OfficeSpace
+from living_space import LivingSpace
 
 #Boilerplate code copied from the link mentioned above
 def docopt_cmd(func):
@@ -72,26 +74,46 @@ class Dojo(cmd.Cmd):
         """Creates rooms in the Dojo.
             Creates a room after receiving as arguments the type of the room and its name.
             Multiple names can be passed and that would create as many rooms with those names"""
-        
-        # check if the arguments passed have a room type: room types are 'office' and 'living_space'
+
+        # check if the arguments passed have a room type: room types are 'office' and 'livingspace'
         if args['<room_type>'] == "office": #room type of 'office'
             if args['<room_name>'] != None:
-                
+                #store the entered room names in a list
+                entered_room_names = args['<room_name>'].rsplit(' ')
+                for room_name in entered_room_names: # loop through the list getting each room name
+                    new_office = OfficeSpace(room_name)
+                    self.all_rooms.append(new_office)
 
+                    print("An office called " + room_name + " has been successfully created!")
+        elif args['<room_type>'] == "livingspace":
+            if args['<room_name>'] != None:
+                #store the entered room names in a list
+                entered_room_names = args['<room_name>'].rsplit(' ')
+                for room_name in entered_room_names: # loop through the list getting each room name
+                    new_office = LivingSpace(room_name)
+                    self.all_rooms.append(new_office)
 
-        new_rooms = []
-        for each_room_name in room_name:
-            room = Room(room_type, each_room_name)
-            new_rooms.append(room)
-
-        self.all_rooms.extend(new_rooms)
+                    print("A living space called " + room_name + " has been successfully created!")
 
     def add_person(self, person_name):
         """Adds a person to the system and allocates the person a random room"""
         pass
 
+    def do_quit(self, arg):
+        """Quits out of Interactive Mode."""
+
+        print('Good Bye!')
+        exit()
+
+opt = docopt(__doc__, sys.argv[1:])
+
+if opt['--interactive']:
+    Dojo().cmdloop()
+
+"""
 if __name__ == '__main__':
     #args = docopt(__doc__)
     args = docopt(__doc__, version='Dojo Space Allocation 1.0')
     #main(args)
     print(args)
+"""
