@@ -69,12 +69,16 @@ class App(cmd.Cmd):
 
     @docopt_cmd
     def do_create_room(self, args):
-        """Usage: create_room <room_type> <room_name>..."""
+        """Usage: create_room <room_type> <room_name>...
+        Options:
+            -<room_type>    : office | livingspace
+            -<room_name>    : the name of the room to create
+        """
 
         my_dojo = Dojo()
 
         # check if the arguments passed are of room types 'office' and 'livingspace'
-        if args['<room_type>'] == "office": #room type of 'office'
+        if args['<room_type>'].lower() == "office": #room type of 'office'
             if args['<room_name>'] != None:
                 #store the entered room names in a list
                 entered_room_names = args['<room_name>']
@@ -82,7 +86,7 @@ class App(cmd.Cmd):
                 for room_name in entered_room_names: # loop through the list getting each room name
                     my_dojo.create_room("office", room_name)
 
-        elif args['<room_type>'] == "livingspace":
+        elif args['<room_type>'].lower() == "livingspace":
             if args['<room_name>'] != None:
                 #store the entered room names in a list
                 entered_room_names = args['<room_name>']
@@ -93,9 +97,14 @@ class App(cmd.Cmd):
             print("Wrong first argument. Must be 'office' or 'livingspace'")
 
     @docopt_cmd
-    def do_add_person(self, person_name):
+    def do_add_person(self, args):
         """Usage: add_person <person_name> <FELLOW|STAFF> [wants_accommodation]
+        Options:
+            -<person_name>         : name of person to add
+            -<FELLOW|STAFF>        : person type - Fellow | Staff
+            -[wants_accommodation] : Y / N [default: N]
         """
+        #if args[]
         pass
 
     @docopt_cmd
