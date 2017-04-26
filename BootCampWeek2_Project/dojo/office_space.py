@@ -5,7 +5,5 @@ class OfficeSpace(Room):
     for both Fellows and Staff
     """
     def __init__(self, room_type, room_name):
-        super(OfficeSpace, self).__init__(room_type, room_name)
-        self.room_type = "Office Space"
-        self.room_name = room_name
+        super(OfficeSpace, self).__init__("Office Space", room_name)
         self.max_num_of_occupants = 6
