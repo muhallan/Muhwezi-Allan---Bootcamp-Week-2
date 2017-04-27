@@ -98,18 +98,19 @@ class App(cmd.Cmd):
         """Usage: add_person <first_name> <last_name> <person_type> [<wants_accommodation>]
         """
 
-        person_name = args['<first_name>'] + " " + args['<last_name>']
+        first_name = args['<first_name>']
+        second_name = args['<last_name>']
 
         if args['<person_type>'].lower() == "fellow": #add a person who is a Fellow
 
             if args['<wants_accommodation>'] == None: #the accommodation condition was not input. It's N by default
-                my_dojo.add_person(person_name, "fellow")
+                my_dojo.add_person(first_name, second_name, "fellow")
 
             elif args['<wants_accommodation>'].lower() == "Y": #the fellow wants an accommodation
-                my_dojo.add_person(person_name, "fellow", "Y")
+                my_dojo.add_person(first_name, second_name, "Y")
 
             elif args['<wants_accommodation>'].lower() == "N": #the fellow doesn't want an accommodation
-                my_dojo.add_person(person_name, "fellow")
+                my_dojo.add_person(first_name, second_name, "fellow")
             else:
                 print("Invalid argument for 'wants accommodation'. Must be 'Y' or 'N' or left empty")
         elif args['<person_type>'].lower() == "staff": #add a person who is a Staff
@@ -117,7 +118,7 @@ class App(cmd.Cmd):
             if args['<wants_accommodation>'] != None: #the accommodation condition was input. Raise an error
                 print("Staff are not provided with accommodation. Leave the last argument empty")
             else:
-                my_dojo.add_person(person_name, "staff")
+                my_dojo.add_person(first_name, second_name, "staff")
         else:
             print("Wrong argument for person type. Must be a 'fellow' or 'staff'")
 
