@@ -83,7 +83,7 @@ functionality needed in the system"""
 
                 new_fellow = Fellow(first_name, second_name, True)
 
-                if len(self.get_available_office_spaces()) > 0:
+                if self.get_available_office_spaces():
                     #randomly retrieve an office space that is available
                     office_space = random.choice(self.get_available_office_spaces())
                     office_space.occupants.append(new_fellow) #add a person to the occupants list of the current office space
@@ -95,7 +95,7 @@ functionality needed in the system"""
                 else:
                     new_fellow.is_allocated = False
 
-                if len(self.get_available_living_spaces()) > 0:
+                if self.get_available_living_spaces():
                     #randomly retrieve a living space that is available
                     living_space = random.choice(self.get_available_living_spaces())
                     living_space.occupants.append(new_fellow) #add a person to the occupants list of the current living space
@@ -113,10 +113,10 @@ functionality needed in the system"""
 
             else: #the fellow doesn't want accommodation
 
-                new_fellow = Fellow(first_name, second_name, True)
-                new_fellow.is_allocated = True
+                new_fellow = Fellow(first_name, second_name, False)
 
-                if len(self.get_available_office_spaces()) > 0:
+                if self.get_available_office_spaces():
+
                     #randomly retrieve an office space that is available
                     office_space = random.choice(self.get_available_office_spaces())
                     office_space.occupants.append(new_fellow) #add a person to the occupants list of the current office space
@@ -136,7 +136,7 @@ functionality needed in the system"""
 
             new_staff = Staff(first_name, second_name)
 
-            if len(self.get_available_office_spaces()) > 0:
+            if self.get_available_office_spaces():
                 #randomly retrieve an office space that is available
                 office_space = random.choice(self.get_available_office_spaces())
                 office_space.occupants.append(new_staff) #add a person to the occupants list of the current office space
