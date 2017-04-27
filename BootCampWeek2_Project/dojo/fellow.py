@@ -4,8 +4,8 @@ class Fellow(Person):
     """
     Fellow class that inherits from Person but includes data for accomodation
     """
-    def __init__(self, fellow_name, wants_accommodation):
-        super(Fellow, self).__init__(fellow_name)
+    def __init__(self, first_name, second_name, wants_accommodation):
+        super(Fellow, self).__init__(first_name, second_name)
         self.__wants_accommodation = wants_accommodation
         self.__livingspace_name = None
 
