@@ -54,6 +54,8 @@ def docopt_cmd(func):
     fn.__dict__.update(func.__dict__)
     return fn
 
+my_dojo = Dojo() #get the Dojo object to use to call its methods
+
 class App(cmd.Cmd):
     """
     The App class ties everything together.
@@ -71,7 +73,6 @@ class App(cmd.Cmd):
     def do_create_room(self, args):
         """Usage: create_room <room_type> <room_name>...
         """
-        my_dojo = Dojo() #get the Dojo object to use to call its methods
 
         # check if the arguments passed are of room types 'office' and 'livingspace'
         if args['<room_type>'].lower() == "office": #room type of 'office'
@@ -96,7 +97,7 @@ class App(cmd.Cmd):
     def do_add_person(self, args):
         """Usage: add_person <first_name> <last_name> <person_type> [<wants_accommodation>]
         """
-        my_dojo = Dojo() #get the Dojo object to use to call its methods
+
         person_name = args['<first_name>'] + " " + args['<last_name>']
 
         if args['<person_type>'].lower() == "fellow": #add a person who is a Fellow
