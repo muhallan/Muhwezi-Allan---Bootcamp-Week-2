@@ -11,7 +11,7 @@ class Room(object):
         """
         self.__room_name = room_name
         self.__room_type = room_type
-        self.__occupants=[]
+        self.__occupants = []
 
     @property
     def room_name(self):
@@ -46,7 +46,7 @@ class Room(object):
         :return:
         """
 
-        @property
+    @property
     def occupants(self):
         """
         This is a getter for the occupants attribute of the Room object
@@ -54,7 +54,7 @@ class Room(object):
         """
         return self.__occupants
 
-    @room_type.setter
+    @occupants.setter
     def occupants(self, occupants):
         """
         This sets the occupants of the room
