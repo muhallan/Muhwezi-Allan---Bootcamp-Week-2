@@ -132,7 +132,7 @@ functionality needed in the system"""
 
                 return True
 
-        else: # the person to add is a staff
+        elif person_type == "staff": # the person to add is a staff
 
             new_staff = Staff(first_name, second_name)
 
@@ -152,6 +152,9 @@ functionality needed in the system"""
 
             return True
 
+        else: #person_type entered is neither fellow nor staff. should not be allowed
+            print("Wrong person type entered. Only 'staff' and 'fellow' are supported")
+            return False
 
 
 if __name__ == '__main__':
