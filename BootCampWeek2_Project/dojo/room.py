@@ -1,10 +1,10 @@
-"""
-A Room class that is used to create a room in the Dojo. This is the super class that is inherited by
-"""
 
-
-class Room (object):
-    def __init__(self, room_name, room_type):
+class Room(object):
+    """
+    A Room class that is used to create a room in the Dojo.
+    This is the super class that is inherited by OfficeSpace and LivingSpace classes
+    """
+    def __init__(self, room_type, room_name):
         """
         This is the initializer of the class. room_name and room_type as passed in while
         initializing Room objects
@@ -15,7 +15,8 @@ class Room (object):
     @property
     def room_name(self):
         """
-        This is a getter for the room_name attribute. it's accessed using the instance of the Room object
+        This is a getter for the room_name attribute.
+        It's accessed using the instance of the Room object
         :return: room_name
         """
         return self.__room_name
@@ -45,4 +46,19 @@ class Room (object):
         """
 
     def print_name(self, room_name, occupants):
+        """
+        Prints the name of the room passed and it's occupants
+        :param room_name, occupants:
+        :return:
+        """
         pass
+
+"""
+    def __eq__(self, other):
+        
+        Needed to compare if an office with the same name
+        already exists in the available office list
+        
+        return self.__room_name == other.__room_name
+        """
+    
