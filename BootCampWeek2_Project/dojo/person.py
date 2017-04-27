@@ -9,7 +9,7 @@ class Person(object):
         """
         self.__first_name = first_name
         self.__second_name = second_name
-        self.__is_allocated = is_allocated
+        self.__is_allocated = is_allocated #refers to the fact that a person is allocated to an office and if it's a fellow and he wants a living space, he is allocated to one
         self.__office_name = None
 
     @property
