@@ -27,7 +27,7 @@ class Person(object):
         :param first_name
         :return:
         """
-    
+
     @property
     def second_name(self):
         """
