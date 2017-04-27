@@ -2,7 +2,7 @@
 
 Usage:
     dojo.py create_room <room_type> <room_name>...
-    dojo.py add_person <person_name> FELLOW|STAFF [wants_accommodation]
+    dojo.py add_person <first_name> <last_name> <person_type> <wants_accommodation>
     dojo.py (-i | --interactive)
     dojo.py (-h | --help | --version)
 
@@ -70,9 +70,6 @@ class App(cmd.Cmd):
     @docopt_cmd
     def do_create_room(self, args):
         """Usage: create_room <room_type> <room_name>...
-        Options:
-            -<room_type>    : office | livingspace
-            -<room_name>    : the name of the room to create
         """
 
         my_dojo = Dojo()
@@ -98,14 +95,24 @@ class App(cmd.Cmd):
 
     @docopt_cmd
     def do_add_person(self, args):
-        """Usage: add_person <person_name> <FELLOW|STAFF> [wants_accommodation]
-        Options:
-            -<person_name>         : name of person to add
-            -<FELLOW|STAFF>        : person type - Fellow | Staff
-            -[wants_accommodation] : Y / N [default: N]
+        """Usage: add_person <first_name> <last_name> <person_type> <wants_accommodation>
         """
+
+        if args['<person_type>'].lower() == "fellow": #add a person who is a Fellow
+            if args['<wants_accommodation>'].lower() == "Y": #the fellow wants an accommodation
+                pass
+            elif args['<wants_accommodation>'].lower() == "N": #the fellow doesn't want an accommodation
+                pass
+            else:
+                print("Invalid argument for 'wants accommodation'. Must be 'Y' or 'N'")
+        elif args['<person_type>'].lower() == "staff": #add a person who is a Staff
+            #ignore the argument for <wants_accommodation> since staff are not provided accommodation
+            pass
+        else:
+            print("Wrong argument for person type. Must be a 'fellow' or 'staff'")
+
+        #print(args)
         #if args[]
-        pass
 
     @docopt_cmd
     def do_quit(self, arg):
