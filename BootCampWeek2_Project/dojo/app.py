@@ -2,7 +2,8 @@
 
 Usage:
     dojo.py create_room <room_type> <room_name>...
-    dojo.py aadd_person <first_name> <last_name> <person_type> [<wants_accommodation>]
+    dojo.py add_person <first_name> <last_name> <person_type> [<wants_accommodation>]
+    dojo.py print_room <room_name>
     dojo.py (-i | --interactive)
     dojo.py (-h | --help | --version)
 
@@ -64,8 +65,12 @@ class App(cmd.Cmd):
     The commands entered direct which methods to call from Dojo so as to carry out the tasks
     """
 
-    intro = '\n\tWelcome to my Dojo Space Allocation program!' \
-        + ' \t\t\t\t(type help for a list of commands.)\n\n'
+    intro = '\n\t\tWelcome to my Dojo Space Allocation program!' \
+        + '\n\n\t\t\t----------------------\n' \
+        + '\nCommands: \n\tdojo.py create_room <room_type> <room_name>...' \
+        + '\n\tdojo.py add_person <first_name> <last_name> <person_type> [<wants_accommodation>]' \
+        + '\n\tdojo.py print_room <room_name>' \
+        + ' \n\n\t\t(type help for a list of commands.)\n\n'
     prompt = '(Type your command) '
     file = None
 
@@ -92,6 +97,7 @@ class App(cmd.Cmd):
                     my_dojo.create_room("livingspace", room_name)
         else:
             print("Wrong first argument. Must be 'office' or 'livingspace'")
+            print("\n\n\t\t\t---------------------------\n\n")
 
     @docopt_cmd
     def do_add_person(self, args):
@@ -106,28 +112,33 @@ class App(cmd.Cmd):
             if args['<wants_accommodation>'] == None: #the accommodation condition was not input. It's N by default
                 my_dojo.add_person(first_name, second_name, "fellow")
 
-            elif args['<wants_accommodation>'].lower() == "Y": #the fellow wants an accommodation
-                my_dojo.add_person(first_name, second_name, "Y")
+            elif args['<wants_accommodation>'].lower() == "y": #the fellow wants an accommodation
+                my_dojo.add_person(first_name, second_name, "fellow", "Y")
 
-            elif args['<wants_accommodation>'].lower() == "N": #the fellow doesn't want an accommodation
+            elif args['<wants_accommodation>'].lower() == "n": #the fellow doesn't want an accommodation
                 my_dojo.add_person(first_name, second_name, "fellow")
             else:
                 print("Invalid argument for 'wants accommodation'. Must be 'Y' or 'N' or left empty")
+                print("\n\n\t\t\t---------------------------\n\n")
         elif args['<person_type>'].lower() == "staff": #add a person who is a Staff
 
             if args['<wants_accommodation>'] != None: #the accommodation condition was input. Raise an error
                 print("Staff are not provided with accommodation. Leave the last argument empty")
+                print("\n\n\t\t\t---------------------------\n\n")
             else:
                 my_dojo.add_person(first_name, second_name, "staff")
         else:
             print("Wrong argument for person type. Must be a 'fellow' or 'staff'")
-
-        #print(args['<wants_accommodation>'])
-        #print(args)
-        #if args[]
+            print("\n\n\t\t\t---------------------------\n\n")
 
     @docopt_cmd
-    def do_quit(self, arg):
+    def do_print_room(self, args):
+        """Usage: print_room <room_name>
+        """
+        print(args)
+
+    @docopt_cmd
+    def do_quit(self, args):
         """Quits out of Interactive Mode."""
 
         print('Good Bye!')
