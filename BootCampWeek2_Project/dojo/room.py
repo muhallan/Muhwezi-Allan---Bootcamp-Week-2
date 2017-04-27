@@ -11,6 +11,7 @@ class Room(object):
         """
         self.__room_name = room_name
         self.__room_type = room_type
+        self.__occupants=[]
 
     @property
     def room_name(self):
@@ -45,10 +46,27 @@ class Room(object):
         :return:
         """
 
-    def print_name(self, room_name, occupants):
+        @property
+    def occupants(self):
+        """
+        This is a getter for the occupants attribute of the Room object
+        :return: occupants
+        """
+        return self.__occupants
+
+    @room_type.setter
+    def occupants(self, occupants):
+        """
+        This sets the occupants of the room
+        :param occupants:
+        :return:
+        """
+
+    def print_name(self, room_name):
         """
         Prints the name of the room passed and it's occupants
-        :param room_name, occupants:
+        Loops through the list of occupants and prints them out
+        :param room_name:
         :return:
         """
         pass
