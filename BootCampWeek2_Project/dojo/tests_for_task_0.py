@@ -24,5 +24,22 @@ class TestsForTask0(unittest.TestCase):
         no_office_created = dojo.create_room("blue", "office")
         self.assertFalse(no_office_created)
 
+        duplicate_room = dojo.create_room("office", "Blue")
+        self.assertEqual(duplicate_room, False)
+
+    def test_add_person_successfully(self):
+        """
+        Test if a person is added successfully using the add_person method in Dojo
+        """
+        dojo = Dojo()
+        initial_people_count = len(dojo.all_people)
+
+        #add_person(self, person_name, person_type, wants_accommodation="N")
+
+        staff_one = dojo.add_person("Stan Lee", "staff")
+        self.assertTrue(staff_one)
+
+
+
 if __name__ == "__main__":
     unittest.main()
