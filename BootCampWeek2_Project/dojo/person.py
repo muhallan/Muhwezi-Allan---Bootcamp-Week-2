@@ -3,27 +3,44 @@ class Person(object):
     """
     The Person class that provides a superclass for Fellow and Staff subclasses
     """
-    def __init__(self, person_name, is_allocated=False):
+    def __init__(self, first_name, second_name, is_allocated=False):
         """
         The init method of Person. Every person created is expected to have a name
         """
-        self.__person_name = person_name
+        self.__first_name = first_name
+        self.__second_name = second_name
         self.__is_allocated = is_allocated
         self.__office_name = None
 
     @property
-    def person_name(self):
+    def first_name(self):
         """
-        This is a getter for the person_name attribute.
-        :return: person_name
+        This is a getter for the first_name attribute.
+        :return: first_name
         """
-        return self.__person_name
+        return self.__first_name
 
-    @person_name.setter
-    def person_name(self, person_name):
+    @first_name.setter
+    def first_name(self, first_name):
         """
-        Setter for the person_name attribute
-        :param person_name
+        Setter for the first_name attribute
+        :param first_name
+        :return:
+        """
+    
+    @property
+    def second_name(self):
+        """
+        This is a getter for the second_name attribute.
+        :return: second_name
+        """
+        return self.__second_name
+
+    @second_name.setter
+    def second_name(self, second_name):
+        """
+        Setter for the second_name attribute
+        :param second_name
         :return:
         """
 
