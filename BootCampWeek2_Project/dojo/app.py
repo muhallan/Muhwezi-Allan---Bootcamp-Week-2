@@ -2,7 +2,7 @@
 
 Usage:
     dojo.py create_room <room_type> <room_name>...
-    dojo.py add_person <first_name> <last_name> <person_type> <wants_accommodation>
+    dojo.py aadd_person <first_name> <last_name> <person_type> [<wants_accommodation>]
     dojo.py (-i | --interactive)
     dojo.py (-h | --help | --version)
 
@@ -71,8 +71,7 @@ class App(cmd.Cmd):
     def do_create_room(self, args):
         """Usage: create_room <room_type> <room_name>...
         """
-
-        my_dojo = Dojo()
+        my_dojo = Dojo() #get the Dojo object to use to call its methods
 
         # check if the arguments passed are of room types 'office' and 'livingspace'
         if args['<room_type>'].lower() == "office": #room type of 'office'
@@ -95,22 +94,33 @@ class App(cmd.Cmd):
 
     @docopt_cmd
     def do_add_person(self, args):
-        """Usage: add_person <first_name> <last_name> <person_type> <wants_accommodation>
+        """Usage: add_person <first_name> <last_name> <person_type> [<wants_accommodation>]
         """
+        my_dojo = Dojo() #get the Dojo object to use to call its methods
+        person_name = args['<first_name>'] + " " + args['<last_name>']
 
         if args['<person_type>'].lower() == "fellow": #add a person who is a Fellow
-            if args['<wants_accommodation>'].lower() == "Y": #the fellow wants an accommodation
-                pass
+
+            if args['<wants_accommodation>'] == None: #the accommodation condition was not input. It's N by default
+                my_dojo.add_person(person_name, "fellow")
+
+            elif args['<wants_accommodation>'].lower() == "Y": #the fellow wants an accommodation
+                my_dojo.add_person(person_name, "fellow", "Y")
+
             elif args['<wants_accommodation>'].lower() == "N": #the fellow doesn't want an accommodation
-                pass
+                my_dojo.add_person(person_name, "fellow")
             else:
-                print("Invalid argument for 'wants accommodation'. Must be 'Y' or 'N'")
+                print("Invalid argument for 'wants accommodation'. Must be 'Y' or 'N' or left empty")
         elif args['<person_type>'].lower() == "staff": #add a person who is a Staff
-            #ignore the argument for <wants_accommodation> since staff are not provided accommodation
-            pass
+
+            if args['<wants_accommodation>'] != None: #the accommodation condition was input. Raise an error
+                print("Staff are not provided with accommodation. Leave the last argument empty")
+            else:
+                my_dojo.add_person(person_name, "staff")
         else:
             print("Wrong argument for person type. Must be a 'fellow' or 'staff'")
 
+        #print(args['<wants_accommodation>'])
         #print(args)
         #if args[]
 
