@@ -4,10 +4,10 @@ class Fellow(Person):
     """
     Fellow class that inherits from Person but includes data for accomodation
     """
-    def __init__(self, fellow_name, office_name, wants_accommodation, livingspace_name=None):
-        super(Fellow, self).__init__(fellow_name, office_name)
+    def __init__(self, fellow_name, wants_accommodation):
+        super(Fellow, self).__init__(fellow_name)
         self.__wants_accommodation = wants_accommodation
-        self.__livingspace_name = livingspace_name
+        self.__livingspace_name = None
 
     @property
     def wants_accommodation(self):
@@ -16,7 +16,7 @@ class Fellow(Person):
         :return: wants_accommodation
         """
         return self.__wants_accommodation
-    
+
     @wants_accommodation.setter
     def wants_accommodation(self, wants_accommodation):
         """
@@ -32,7 +32,7 @@ class Fellow(Person):
         :return: livingspace_name
         """
         return self.__livingspace_name
-    
+
     @livingspace_name.setter
     def livingspace_name(self, livingspace_name):
         """
