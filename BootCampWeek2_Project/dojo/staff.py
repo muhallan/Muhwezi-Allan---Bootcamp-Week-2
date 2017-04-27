@@ -4,5 +4,6 @@ class Staff(Person):
     """
     Staff class that inherits from the Person. Used to create people who are staff.
     """
-    def __init__(self, staff_name):
-        super(Staff, self).__init__(staff_name)
+    def __init__(self, first_name, second_name):
+        super(Staff, self).__init__(first_name, second_name)
+        
