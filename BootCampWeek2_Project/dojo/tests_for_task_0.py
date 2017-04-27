@@ -71,7 +71,12 @@ class TestsForTask0AddPerson(unittest.TestCase):
         staff_duplicate = self.dojo.add_person("Stan", "Lee", "staff")
         self.assertEqual(staff_duplicate, False)
 
-
+    def test_if_person_is_assigned_an_office(self):
+        """Test and see if a person is created when there is an available office, that person is assigned to the office
+        """
+        sample_living = self.dojo.create_room("livingspace", "sample")
+        fellow_one = self.dojo.add_person("Jumped", "Out", "fellow", "Y")
+        self.assertTrue(self.dojo.all_people[0].is_allocated)
 
 
 if __name__ == "__main__":
