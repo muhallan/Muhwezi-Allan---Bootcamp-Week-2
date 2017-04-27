@@ -78,6 +78,19 @@ class TestsForTask0AddPerson(unittest.TestCase):
         fellow_one = self.dojo.add_person("Jumped", "Out", "fellow", "Y")
         self.assertTrue(self.dojo.all_people[0].is_allocated)
 
+    def test_person_with_unknown_person_type_not_created(self):
+        """Test if a person with person type not fellow or staff is not added
+        """
+        alien_person = self.dojo.add_person("Jim", "Kim", "star")
+        self.assertFalse(alien_person)
+
+    def test_staff_not_assigned_living_space(self):
+        """Test if only a livingspace room is available and a staff is added, whether the staff will be assigned the livingspace room
+        """
+        sample_living = self.dojo.create_room("livingspace", "sample")
+        unallocated_staff = self.dojo.add_person("Mr", "John", "staff")
+        self.assertFalse(self.dojo.all_people[0].is_allocated)
+
 
 if __name__ == "__main__":
     unittest.main()
