@@ -9,6 +9,6 @@ class LivingSpace(Room):
 
     def __init__(self, room_name):
         super(LivingSpace, self).__init__("Living Space", room_name)
-        self.max_number_of_occupants = 4
+        self.max_num_of_occupants = 4
 
     
