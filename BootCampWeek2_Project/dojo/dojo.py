@@ -44,12 +44,13 @@ functionality needed in the system"""
         print(person_name + " " + person_type + " " + wants_accommodation)
 
         for person in self.all_people:
-            print("A person called " + person_name + " already exists. Choose another name")
-            return False
+            if person.person_name == person_name:
+                print("A person called " + person_name + " already exists. Choose another name")
+                return False
         if person_type == "fellow":
             if wants_accommodation == "Y":
                 new_fellow = Fellow(person_name, True)
-                #new_fellow.is_allocated(True)
+                new_fellow.is_allocated = True
 
 
 
