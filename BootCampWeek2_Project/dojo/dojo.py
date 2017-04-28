@@ -215,3 +215,24 @@ functionality needed in the system"""
 
             return [False]
 
+    def print_allocations(self, file_name=None):
+        """Prints a list of allocations onto the screen.
+        Specifying the optional file_name here outputs the registered allocations to a txt file.
+        :param file_name:
+        :return: List[]:Boolean
+        """
+        string_to_print = ""
+        for room in self.all_rooms: #loop through the saved rooms and get their occupants
+            if room.occupants: #the room has people
+                string_to_print += room.room_name.upper() + "\n" + "----------------------------------------------"
+                room_occupants = room.occupants
+                occupants_names = []
+                for occupant in room_occupants:
+                    occupants_names.append(occupant.first_name + " " + occupant.second_name)
+                string_to_print += ', '.join(occupants_names) + "\n\n"
+            else:
+                continue
+        
+        if (file_name == None): #no file name to write to. just print
+            print(string_to_print)
+        #else:
