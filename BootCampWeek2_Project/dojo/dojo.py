@@ -190,7 +190,28 @@ functionality needed in the system"""
     def print_room(self, room_name):
         """Prints  the names of all the people in room_name on the screen.
         :param room_name:
-        :return: Boolean        
+        :return: List[]:Boolean
         """
+        found_room = False #flag used to tell whether the entered room number actually exists
 
+        for room in self.all_rooms: #loop through all already saved rooms to find what we need
+            if room.room_name == room_name:
+                room_occupants = room.occupants
+                found_room = [True]
+
+                if not room_occupants:
+                    print("The room is empty")
+                    print("\n\n\t\t\t---------------------------\n\n")
+                    return [True]
+                else:
+                    for person in room_occupants:
+                        print(person.first_name + " " + person.second_name)
+
+                    return room_occupants
+
+        if not found_room: #we didn't find the room
+            print("The room name entered doesn't exist")
+            print("\n\n\t\t\t---------------------------\n\n")
+
+            return [False]
 
