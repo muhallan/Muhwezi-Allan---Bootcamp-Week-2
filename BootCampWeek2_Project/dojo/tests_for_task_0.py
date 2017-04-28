@@ -10,7 +10,7 @@ class TestsForTask0CreateRoom(unittest.TestCase):
     """
 
     def setUp(self):
-        """Initialize the test case class"""
+        """Set up the test case class"""
         self.dojo = Dojo()
 
     def test_create_room_successfully(self):
