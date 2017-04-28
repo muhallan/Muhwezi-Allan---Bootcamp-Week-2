@@ -137,6 +137,8 @@ class App(cmd.Cmd):
         """
         room_name = args['<room_name>']
 
+        my_dojo.print_room(room_name)
+
     @docopt_cmd
     def do_quit(self, args):
         """Quits out of Interactive Mode."""
