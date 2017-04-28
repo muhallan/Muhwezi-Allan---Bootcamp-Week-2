@@ -4,6 +4,7 @@ Usage:
     dojo.py create_room <room_type> <room_name>...
     dojo.py add_person <first_name> <last_name> <person_type> [<wants_accommodation>]
     dojo.py print_room <room_name>
+    dojo.py print_allocations [<-o=filename>]
     dojo.py (-i | --interactive)
     dojo.py (-h | --help | --version)
 
@@ -12,6 +13,7 @@ Usage:
         --version           : Show version.
         -i, --interactive   : Interactive Mode
         quit                : Quit the interactive mode
+        -o                  : filename
 """
 
 import sys
@@ -70,6 +72,7 @@ class App(cmd.Cmd):
         + '\nCommands: \n\tcreate_room <room_type> <room_name>...' \
         + '\n\tadd_person <first_name> <last_name> <person_type> [<wants_accommodation>]' \
         + '\n\tprint_room <room_name>' \
+        + '\n\tprint_allocations [-o=filename]' \
         + ' \n\n\t\t(type help for a list of commands.)\n\n'
     prompt = '(Type your command) '
     file = None
@@ -138,6 +141,21 @@ class App(cmd.Cmd):
         room_name = args['<room_name>']
 
         my_dojo.print_room(room_name)
+
+    @docopt_cmd
+    def do_print_allocations(self, args):
+        """ Usage: print_allocations [<-o=filename>]
+        """
+        if args['<-o=filename>'] == None: #no args were input, hence no writing to file, just print
+            my_dojo.print_allocations()
+        else:
+            filename = args['<-o=filename>']
+            if len(filename) < 4: #short file name
+                print("Invalid file name.")
+            elif filename[-4:] is not ".txt": #must end with .txt
+                print("Invalid file name")
+            else:
+                my_dojo.print_allocations(filename)
 
     @docopt_cmd
     def do_quit(self, args):
