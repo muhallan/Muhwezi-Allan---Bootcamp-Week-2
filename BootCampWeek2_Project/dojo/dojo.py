@@ -224,7 +224,7 @@ functionality needed in the system"""
         string_to_print = ""
         for room in self.all_rooms: #loop through the saved rooms and get their occupants
             if room.occupants: #the room has people
-                string_to_print += room.room_name.upper() + "\n" + "----------------------------------------------"
+                string_to_print += room.room_name.upper() + "\n" + "----------------------------------------------\n"
                 room_occupants = room.occupants
                 occupants_names = []
                 for occupant in room_occupants:
@@ -232,7 +232,12 @@ functionality needed in the system"""
                 string_to_print += ', '.join(occupants_names) + "\n\n"
             else:
                 continue
-        
-        if (file_name == None): #no file name to write to. just print
-            print(string_to_print)
-        #else:
+
+        print(string_to_print)
+
+        if file_name is not None: #no file name to write to. just print
+            try:
+                with open(file_name + ".txt", "w+") as file_to_write:
+                    file_to_write.write(string_to_print)
+            except IOError:
+                print('Failed to write to the file provided')
