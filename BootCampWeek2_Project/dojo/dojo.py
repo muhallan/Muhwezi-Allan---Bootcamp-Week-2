@@ -26,18 +26,24 @@ functionality needed in the system"""
         for room in self.all_rooms:
             if room.room_name == room_name:
                 print("A room called " + room_name + " already exists. Choose another name")
+                print("\n\n\t\t\t---------------------------\n\n")
+
                 return False
         if room_type == "office":
             new_office = OfficeSpace(room_name)
             self.all_rooms.append(new_office)
 
             print("An office called " + room_name + " has been successfully created!")
+            print("\n\n\t\t\t---------------------------\n\n")
+
             return True
         elif room_type == "livingspace":
             new_office = LivingSpace(room_name)
             self.all_rooms.append(new_office)
 
             print("A living space called " + room_name + " has been successfully created!")
+            print("\n\n\t\t\t---------------------------\n\n")
+
             return True
         else:
             return False
@@ -77,11 +83,16 @@ functionality needed in the system"""
             person_name = person.first_name + " " + person.second_name
             if person_name == first_name + " " + second_name:
                 print("A person called " + person_name + " already exists. Choose another name")
+                print("\n\n\t\t\t---------------------------\n\n")
+
                 return False
         if person_type == "fellow": #the person to add is a fellow
             if wants_accommodation == "Y": #the fellow wants an accommodation
 
                 new_fellow = Fellow(first_name, second_name, True)
+
+                print("Fellow " + first_name + " " + second_name + " has been successfully added.")
+                print("\n\n\t\t\t---------------------------\n\n")
 
                 if self.get_available_office_spaces():
                     #randomly retrieve an office space that is available
@@ -91,6 +102,9 @@ functionality needed in the system"""
                     new_fellow.office_name = office_space.room_name
 
                     new_fellow.is_allocated = True
+
+                    print(first_name + " has been allocated the office " + office_space.room_name)
+                    print("\n\n\t\t\t---------------------------\n\n")
 
                 else:
                     new_fellow.is_allocated = False
@@ -104,6 +118,9 @@ functionality needed in the system"""
 
                     new_fellow.is_allocated = True
 
+                    print(first_name + " has been allocated the livingspace " + living_space.room_name)
+                    print("\n\n\t\t\t---------------------------\n\n")
+
                 else:
                     new_fellow.is_allocated = False
 
@@ -115,6 +132,9 @@ functionality needed in the system"""
 
                 new_fellow = Fellow(first_name, second_name, False)
 
+                print("Fellow " + first_name + " " + second_name + " has been successfully added.")
+                print("\n\n\t\t\t---------------------------\n\n")
+
                 if self.get_available_office_spaces():
 
                     #randomly retrieve an office space that is available
@@ -124,6 +144,9 @@ functionality needed in the system"""
                     new_fellow.office_name = office_space.room_name
 
                     new_fellow.is_allocated = True
+
+                    print(first_name + " has been allocated the office " + office_space.room_name)
+                    print("\n\n\t\t\t---------------------------\n\n")
 
                 else:
                     new_fellow.is_allocated = False
@@ -136,6 +159,9 @@ functionality needed in the system"""
 
             new_staff = Staff(first_name, second_name)
 
+            print("Staff " + first_name + " " + second_name + " has been successfully added.")
+            print("\n\n\t\t\t---------------------------\n\n")
+
             if self.get_available_office_spaces():
                 #randomly retrieve an office space that is available
                 office_space = random.choice(self.get_available_office_spaces())
@@ -144,6 +170,9 @@ functionality needed in the system"""
                 new_staff.office_name = office_space.room_name
 
                 new_staff.is_allocated = True
+
+                print(first_name + " has been allocated the office " + office_space.room_name)                
+                print("\n\n\t\t\t---------------------------\n\n")
 
             else:
                 new_staff.is_allocated = False
@@ -154,9 +183,14 @@ functionality needed in the system"""
 
         else: #person_type entered is neither fellow nor staff. should not be allowed
             print("Wrong person type entered. Only 'staff' and 'fellow' are supported")
+            print("\n\n\t\t\t---------------------------\n\n")
+
             return False
 
+    def print_room(self, room_name):
+        """Prints  the names of all the people in room_name on the screen.
+        :param room_name:
+        :return: Boolean        
+        """
 
-if __name__ == '__main__':
-    pass
 
