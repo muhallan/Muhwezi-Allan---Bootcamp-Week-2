@@ -67,9 +67,9 @@ class App(cmd.Cmd):
 
     intro = '\n\t\tWelcome to my Dojo Space Allocation program!' \
         + '\n\n\t\t\t----------------------\n' \
-        + '\nCommands: \n\tdojo.py create_room <room_type> <room_name>...' \
-        + '\n\tdojo.py add_person <first_name> <last_name> <person_type> [<wants_accommodation>]' \
-        + '\n\tdojo.py print_room <room_name>' \
+        + '\nCommands: \n\tcreate_room <room_type> <room_name>...' \
+        + '\n\tadd_person <first_name> <last_name> <person_type> [<wants_accommodation>]' \
+        + '\n\tprint_room <room_name>' \
         + ' \n\n\t\t(type help for a list of commands.)\n\n'
     prompt = '(Type your command) '
     file = None
@@ -135,7 +135,7 @@ class App(cmd.Cmd):
     def do_print_room(self, args):
         """Usage: print_room <room_name>
         """
-        print(args)
+        room_name = args['<room_name>']
 
     @docopt_cmd
     def do_quit(self, args):
