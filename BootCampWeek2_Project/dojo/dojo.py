@@ -284,13 +284,13 @@ functionality needed in the system"""
             else: #the room is not available
                 print("The room you have entered is not available to add to.")
                 return
-        
+
         person_to_move = None
         for person in self.all_people:
             person_name = person.first_name + " " + person.second_name
             given_name = first_name + " " + second_name
             if person_name == given_name: #the person has been found
-                
+
                 if person.is_allocated: #person is allocated
                     person_to_move = person
                 else:
@@ -300,13 +300,40 @@ functionality needed in the system"""
             else: #the person to move is not there
                 print("The person you have entered is not in the system.")
                 return
-        
-        #if room_to_change_to
-        #if person_to_move.
+
+        current_occupants_room_name = None
+
+        if isinstance(person_to_move, Staff): #the person to move is a Staff
+            if isinstance(room_to_change_to, LivingSpace):
+                print("A Staff cannot be moved to a living space room")
+                return
+            else:
+                current_occupants_room_name = person_to_move.office_name
+
+                person_to_move.office_name = room_to_change_to.room_name #assign a new office name to the person
+        else: #the person to move is a Fellow
+            if isinstance(room_to_change_to, LivingSpace):
+                current_occupants_room_name = person_to_move.livingspace_name 
+
+                person_to_move.livingspace_name = room_to_change_to.room_name #assign a new living space to the person
+            else:
+                current_occupants_room_name = person_to_move.office_name
+                person_to_move.office_name = room_to_change_to.room_name #assign a new office space to the person
+
+        print(first_name + " " + second_name + " has been rellocated from " + current_occupants_room_name + " to " + room_name)
+
         #do the reallocating
-        #randomly retrieve an office space that is available
+        #loop through all rooms to get the previously occupied room and reduce its occupants
+        old_room_to_free = None
+        index_of_room = None
+        for old_room in self.all_rooms:
+            index_of_room += 1
+            if old_room.room_name == current_occupants_room_name:
+                old_room_to_free = old_room
+                break
 
-        office_space = random.choice(self.get_available_office_spaces())
-        office_space.occupants.append(new_fellow) #add a person to the occupants list of the current office space
+        old_room_to_free.occupants.pop(index_of_room)
 
-        new_fellow.office_name = office_space.room_name
+        current_occupants = room_to_change_to.occupants
+        new_occupants = room_to_change_to.append(person_to_move)
+
