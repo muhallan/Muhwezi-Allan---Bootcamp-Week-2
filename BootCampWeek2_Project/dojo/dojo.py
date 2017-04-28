@@ -171,7 +171,7 @@ functionality needed in the system"""
 
                 new_staff.is_allocated = True
 
-                print(first_name + " has been allocated the office " + office_space.room_name)                
+                print(first_name + " has been allocated the office " + office_space.room_name)
                 print("\n\n\t\t\t---------------------------\n\n")
 
             else:
@@ -219,7 +219,7 @@ functionality needed in the system"""
         """Prints a list of allocations onto the screen.
         Specifying the optional file_name here outputs the registered allocations to a txt file.
         :param file_name:
-        :return: 
+        :return:
         """
         string_to_print = ""
         for room in self.all_rooms: #loop through the saved rooms and get their occupants
@@ -243,7 +243,7 @@ functionality needed in the system"""
                 print('Failed to write to the file provided')
 
     def print_unallocated(self, file_name=None):
-        """Prints a list of unallocated people to the screen. 
+        """Prints a list of unallocated people to the screen.
         Specifying the filename here outputs the information to the txt file provided
         :param file_name:
         :return:
@@ -263,4 +263,50 @@ functionality needed in the system"""
                     file_to_write.write(string_to_print)
             except IOError:
                 print('Failed to write to the file provided')
+
+    def reallocate_person(self, first_name, second_name, room_name):
+        """Reallocate the person with person_identifier to new_room_name.
+        :param file_name:
+        :return:
+        """
+        #check if the entered room_name is among the available ones
+        available_living_spaces = self.get_available_living_spaces()
+        available_office_spaces = self.get_available_office_spaces()
+
+        all_available_rooms = []
+        all_available_rooms.extend(available_living_spaces)
+        all_available_rooms.extend(available_office_spaces)
+
+        room_to_change_to = None
+        for room in all_available_rooms:
+            if room.room_name == room_name: #the room is available
+                room_to_change_to = room
+            else: #the room is not available
+                print("The room you have entered is not available to add to.")
+                return
         
+        person_to_move = None
+        for person in self.all_people:
+            person_name = person.first_name + " " + person.second_name
+            given_name = first_name + " " + second_name
+            if person_name == given_name: #the person has been found
+                
+                if person.is_allocated: #person is allocated
+                    person_to_move = person
+                else:
+                    print("The person you have entered is not allocated to a room")
+                    return
+
+            else: #the person to move is not there
+                print("The person you have entered is not in the system.")
+                return
+        
+        #if room_to_change_to
+        #if person_to_move.
+        #do the reallocating
+        #randomly retrieve an office space that is available
+
+        office_space = random.choice(self.get_available_office_spaces())
+        office_space.occupants.append(new_fellow) #add a person to the occupants list of the current office space
+
+        new_fellow.office_name = office_space.room_name
