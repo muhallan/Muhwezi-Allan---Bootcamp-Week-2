@@ -6,7 +6,7 @@ Usage:
     dojo.py print_room <room_name>
     dojo.py print_allocations [<-o=filename>]
     dojo.py print_unallocated [<-o=filename>]
-    dojo.py reallocate_person <person_identifier> <new_room_name>
+    dojo.py reallocate_person <first_name> <second_name> <new_room_name>
     dojo.py (-i | --interactive)
     dojo.py (-h | --help | --version)
 
@@ -76,7 +76,7 @@ class App(cmd.Cmd):
         + '\n\tprint_room <room_name>' \
         + '\n\tprint_allocations [-o=filename]' \
         + '\n\tprint_unallocated [-o=filename]' \
-        + '\n\treallocate_person <person_identifier> <new_room_name>' \
+        + '\n\treallocate_person <first_name> <second_name> <new_room_name>' \
         + ' \n\n\t\t(type help for a list of commands.)\n\n'
     prompt = '(Type your command) '
     file = None
@@ -180,13 +180,13 @@ class App(cmd.Cmd):
 
     @docopt_cmd
     def do_reallocate_person(self, args):
-        """Usage: reallocate_person <person_identifier> <new_room_name>
+        """Usage: reallocate_person <first_name> <second_name> <new_room_name>
         """
-        print(args)
+        my_dojo.reallocate_person(args['<first_name>'], args['<second_name>'], args['<new_room_name>'])
 
     @docopt_cmd
     def do_quit(self, args):
-        """Quits out of Interactive Mode."""
+        """Usage: quit"""
 
         print('Good Bye!')
         exit()
