@@ -219,7 +219,7 @@ functionality needed in the system"""
         """Prints a list of allocations onto the screen.
         Specifying the optional file_name here outputs the registered allocations to a txt file.
         :param file_name:
-        :return: List[]:Boolean
+        :return: 
         """
         string_to_print = ""
         for room in self.all_rooms: #loop through the saved rooms and get their occupants
@@ -241,3 +241,26 @@ functionality needed in the system"""
                     file_to_write.write(string_to_print)
             except IOError:
                 print('Failed to write to the file provided')
+
+    def print_unallocated(self, file_name=None):
+        """Prints a list of unallocated people to the screen. 
+        Specifying the filename here outputs the information to the txt file provided
+        :param file_name:
+        :return:
+        """
+        string_to_print = ""
+        for person in self.all_people: #loop through the saved people
+            if not person.is_allocated: #if a person is not allocated fully print them out
+                string_to_print += person.first_name + " " + person.second_name + "\n"
+            else:
+                continue
+
+        print(string_to_print)
+
+        if file_name is not None: #no file name to write to. just print
+            try:
+                with open(file_name + ".txt", "w+") as file_to_write:
+                    file_to_write.write(string_to_print)
+            except IOError:
+                print('Failed to write to the file provided')
+        
