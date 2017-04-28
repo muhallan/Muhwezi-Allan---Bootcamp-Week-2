@@ -150,10 +150,11 @@ class App(cmd.Cmd):
             my_dojo.print_allocations()
         else:
             filename = args['<-o=filename>']
+
             if len(filename) < 4: #short file name
                 print("Invalid file name.")
-            elif filename[-4:] is not ".txt": #must end with .txt
-                print("Invalid file name")
+            elif filename.split(".")[-1] != "txt": #must end with .txt
+                print("Invalid file name.")
             else:
                 my_dojo.print_allocations(filename)
 
