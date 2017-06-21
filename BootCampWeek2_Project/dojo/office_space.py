@@ -1,5 +1,6 @@
 from room import Room
 
+
 class OfficeSpace(Room):
     """OfficeSpace  class that inherits from Room and is used to create office spaces
     for both Fellows and Staff

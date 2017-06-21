@@ -7,6 +7,9 @@ Usage:
     dojo.py print_allocations [<-o=filename>]
     dojo.py print_unallocated [<-o=filename>]
     dojo.py reallocate_person <first_name> <second_name> <new_room_name>
+    dojo.py load_people <text_filename>
+    dojo.py save_state [<--db=sqlite_database>]
+    dojo.py load_state <sqlite_database>
     dojo.py (-i | --interactive)
     dojo.py (-h | --help | --version)
 
@@ -28,7 +31,8 @@ Adapted the docopt code from this documentation
     Credit: https://github.com/docopt/docopt/blob/master/examples/interactive_example.py
 """
 
-#Boilerplate code copied from the link mentioned above
+
+# Boilerplate code copied from the link mentioned above
 def docopt_cmd(func):
     """
     This decorator is used to simplify the try/except block and pass the result
@@ -59,7 +63,8 @@ def docopt_cmd(func):
     fn.__dict__.update(func.__dict__)
     return fn
 
-my_dojo = Dojo() #get the Dojo object to use to call its methods
+my_dojo = Dojo()  # get the Dojo object to use to call its methods
+
 
 class App(cmd.Cmd):
     """
@@ -77,6 +82,9 @@ class App(cmd.Cmd):
         + '\n\tprint_allocations [-o=filename]' \
         + '\n\tprint_unallocated [-o=filename]' \
         + '\n\treallocate_person <first_name> <second_name> <new_room_name>' \
+        + '\n\tload_people <text_filename>' \
+        + '\n\tsave_state [--db=sqlite_database]' \
+        + '\n\tload_state <sqlite_database>' \
         + ' \n\n\t\t(type help for a list of commands.)\n\n'
     prompt = '(Type your command) '
     file = None
@@ -87,20 +95,20 @@ class App(cmd.Cmd):
         """
 
         # check if the arguments passed are of room types 'office' and 'livingspace'
-        if args['<room_type>'].lower() == "office": #room type of 'office'
-            if args['<room_name>'] != None:
-                #store the entered room names in a list
+        if args['<room_type>'].lower() == "office":  # room type of 'office'
+            if args['<room_name>'] is not None:
+                # store the entered room names in a list
                 entered_room_names = args['<room_name>']
 
-                for room_name in entered_room_names: # loop through the list getting each room name
+                for room_name in entered_room_names:  # loop through the list getting each room name
                     my_dojo.create_room("office", room_name)
 
         elif args['<room_type>'].lower() == "livingspace":
-            if args['<room_name>'] != None:
-                #store the entered room names in a list
+            if args['<room_name>'] is not None:
+                # store the entered room names in a list
                 entered_room_names = args['<room_name>']
 
-                for room_name in entered_room_names: # loop through the list getting each room name
+                for room_name in entered_room_names:  # loop through the list getting each room name
                     my_dojo.create_room("livingspace", room_name)
         else:
             print("Wrong first argument. Must be 'office' or 'livingspace'")
@@ -114,22 +122,22 @@ class App(cmd.Cmd):
         first_name = args['<first_name>']
         second_name = args['<last_name>']
 
-        if args['<person_type>'].lower() == "fellow": #add a person who is a Fellow
+        if args['<person_type>'].lower() == "fellow":  # add a person who is a Fellow
 
-            if args['<wants_accommodation>'] == None: #the accommodation condition was not input. It's N by default
+            if args['<wants_accommodation>'] is None:  # the accommodation condition was not input. It's N by default
                 my_dojo.add_person(first_name, second_name, "fellow")
 
-            elif args['<wants_accommodation>'].lower() == "y": #the fellow wants an accommodation
+            elif args['<wants_accommodation>'].lower() == "y":  # the fellow wants an accommodation
                 my_dojo.add_person(first_name, second_name, "fellow", "Y")
 
-            elif args['<wants_accommodation>'].lower() == "n": #the fellow doesn't want an accommodation
+            elif args['<wants_accommodation>'].lower() == "n":  # the fellow doesn't want an accommodation
                 my_dojo.add_person(first_name, second_name, "fellow")
             else:
                 print("Invalid argument for 'wants accommodation'. Must be 'Y' or 'N' or left empty")
                 print("\n\n\t\t\t---------------------------\n\n")
-        elif args['<person_type>'].lower() == "staff": #add a person who is a Staff
+        elif args['<person_type>'].lower() == "staff":  # add a person who is a Staff
 
-            if args['<wants_accommodation>'] != None: #the accommodation condition was input. Raise an error
+            if args['<wants_accommodation>'] is not None:  # the accommodation condition was input. Raise an error
                 print("Staff are not provided with accommodation. Leave the last argument empty")
                 print("\n\n\t\t\t---------------------------\n\n")
             else:
@@ -150,15 +158,17 @@ class App(cmd.Cmd):
     def do_print_allocations(self, args):
         """ Usage: print_allocations [<-o=filename>]
         """
-        if args['<-o=filename>'] == None: #no args were input, hence no writing to file, just print
+        if args['<-o=filename>'] is None:  # no args were input, hence no writing to file, just print
             my_dojo.print_allocations()
         else:
             filename = args['<-o=filename>']
 
-            if len(filename) < 4: #short file name
+            if len(filename) < 4:  # short file name
                 print("Invalid file name.")
-            elif filename.split(".")[-1] != "txt": #must end with .txt
+                print("\n\n\t\t\t---------------------------\n\n")
+            elif filename.split(".")[-1] != "txt":  # must end with .txt
                 print("Invalid file name.")
+                print("\n\n\t\t\t---------------------------\n\n")
             else:
                 my_dojo.print_allocations(filename)
 
@@ -166,15 +176,17 @@ class App(cmd.Cmd):
     def do_print_unallocated(self, args):
         """Usage: print_unallocated [<-o=filename>]
         """
-        if args['<-o=filename>'] == None: #no args were input, hence no writing to file, just print
+        if args['<-o=filename>'] is None:  # no args were input, hence no writing to file, just print
             my_dojo.print_unallocated()
         else:
             filename = args['<-o=filename>']
 
-            if len(filename) < 4: #short file name
+            if len(filename) < 4:  # short file name
                 print("Invalid file name.")
-            elif filename.split(".")[-1] != "txt": #must end with .txt
+                print("\n\n\t\t\t---------------------------\n\n")
+            elif filename.split(".")[-1] != "txt":  # must end with .txt
                 print("Invalid file name.")
+                print("\n\n\t\t\t---------------------------\n\n")
             else:
                 my_dojo.print_unallocated(filename)
 
@@ -183,6 +195,51 @@ class App(cmd.Cmd):
         """Usage: reallocate_person <first_name> <second_name> <new_room_name>
         """
         my_dojo.reallocate_person(args['<first_name>'], args['<second_name>'], args['<new_room_name>'])
+
+    @docopt_cmd
+    def do_load_people(self, args):
+        """Usage: load_people <text_filename>
+        """
+        filename = args['<text_filename>']
+        if len(filename) < 4:  # short file name
+            print("Invalid file name.")
+            print("\n\n\t\t\t---------------------------\n\n")
+        elif filename.split(".")[-1] != "txt":  # must end with .txt
+            print("Invalid file name.")
+            print("\n\n\t\t\t---------------------------\n\n")
+        else:
+            my_dojo.load_people(args['<text_filename>'])
+
+    @docopt_cmd
+    def do_save_state(self, args):
+        """Usage: save_state [<--db=sqlite_database>]
+        """
+        sqlite_db = args['<--db=sqlite_database>']
+        if args['<--db=sqlite_database>'] is None:  # no args, therefore use a default db
+            my_dojo.save_state()
+        else:
+            if len(sqlite_db) < 7:
+                print("Invalid database name.")
+                print("\n\n\t\t\t---------------------------\n\n")
+            elif sqlite_db.split(".")[-1] != "sqlite":
+                print("Invalid database name.")
+                print("\n\n\t\t\t---------------------------\n\n")
+            else:
+                my_dojo.save_state(args['<--db=sqlite_database>'])
+
+    @docopt_cmd
+    def do_load_state(self, args):
+        """Usage: load_state <sqlite_database>
+        """
+        sqlite_db = args['<sqlite_database>']
+        if len(sqlite_db) < 7:
+            print("Invalid database name.")
+            print("\n\n\t\t\t---------------------------\n\n")
+        elif sqlite_db.split(".")[-1] != "sqlite":
+            print("Invalid database name.")
+            print("\n\n\t\t\t---------------------------\n\n")
+        else:
+            my_dojo.load_state(args['<sqlite_database>'])
 
     @docopt_cmd
     def do_quit(self, args):

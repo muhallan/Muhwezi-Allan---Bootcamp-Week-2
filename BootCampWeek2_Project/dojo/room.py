@@ -11,4 +11,4 @@ class Room(object):
         """
         self.room_name = room_name
         self.room_type = room_type
-        self.occupants = [] #number of occupants currently in the room
+        self.occupants = []  # people (of type Person) currently in the room
